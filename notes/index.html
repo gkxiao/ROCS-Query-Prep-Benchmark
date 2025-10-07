@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query Preparation Effects in ROCS-Based Virtual Screening</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #64748b;
+            --accent: #f59e0b;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .serif {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card {
+            background: var(--surface);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .method-card {
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border: 1px solid #bae6fd;
+        }
+        
+        .citation {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .citation:hover {
+            text-decoration: underline;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #fef3c7 0%, #fde68a 100%);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            margin: 3rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="container mx-auto px-6 py-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold serif gradient-text mb-4">
+                    Query Preparation Effects in ROCS-Based Virtual Screening
+                </h1>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto">
+                    A comprehensive analysis of methodologies and their impact on screening performance
+                </p>
+                <div class="mt-6 flex flex-wrap justify-center gap-4 text-sm text-gray-500">
+                    <span><i class="fas fa-calendar mr-2"></i>2024 Review</span>
+                    <span><i class="fas fa-file-alt mr-2"></i>5 Papers Analyzed</span>
+                    <span><i class="fas fa-chart-line mr-2"></i>Performance Metrics</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <!-- Executive Summary -->
+        <section class="mb-16">
+            <div class="card p-8">
+                <h2 class="text-3xl font-bold serif mb-6 text-center">
+                    <i class="fas fa-star text-yellow-500 mr-3"></i>Executive Summary
+                </h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4 text-blue-600">Key Findings</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                <span><span class="highlight">Conformational optimization</span> consistently outperforms minimum energy structures</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                <span><span class="highlight">Feature decomposition</span> enables system-specific optimization via machine learning</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                <span><span class="highlight">Scaffold-focused approaches</span> excel at identifying structurally novel compounds</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                <span><span class="highlight">Multi-reference methods</span> show promise for complex targets</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4 text-blue-600">Performance Impact</h3>
+                        <div class="space-y-4">
+                            <div class="metric-card p-4 rounded-lg">
+                                <div class="text-2xl font-bold text-blue-600">10-15%</div>
+                                <div class="text-sm text-gray-600">Average AUC improvement with optimized queries</div>
+                            </div>
+                            <div class="metric-card p-4 rounded-lg">
+                                <div class="text-2xl font-bold text-blue-600">8.2%</div>
+                                <div class="text-sm text-gray-600">Hit rate for scaffold-focused screening</div>
+                            </div>
+                            <div class="metric-card p-4 rounded-lg">
+                                <div class="text-2xl font-bold text-blue-600">27</div>
+                                <div class="text-sm text-gray-600">Unique scaffolds identified in prospective screening</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Methodological Approaches -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold serif mb-8 text-center">Methodological Approaches to Query Preparation</h2>
+            
+            <div class="grid gap-6">
+                <!-- CORAL Method -->
+                <div class="method-card card">
+                    <div class="flex items-start justify-between mb-4">
+                        <h3 class="text-xl font-semibold">Conformational Optimization (CORAL)</h3>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Tawa et al. 2009</span>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        Systematic evaluation of multiple conformations to identify optimal query structures through clustering and representative selection.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-gray-50 p-3 rounded">
+                            <div class="font-semibold text-sm">Methodology</div>
+                            <div class="text-sm text-gray-600">Conformational clustering + representative selection</div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <div class="font-semibold text-sm">Datasets</div>
+                            <div class="text-sm text-gray-600">40 DUD datasets</div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <div class="font-semibold text-sm">Performance</div>
+                            <div class="text-sm text-gray-600">Consistently outperformed minimum energy</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature Decomposition -->
+                <div class="method-card card">
+                    <div class="flex items-start justify-between mb-4">
+                        <h3 class="text-xl font-semibold">Feature Decomposition & ML Integration</h3>
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Kearnes & Pande 2016</span>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        Decomposition of ROCS color force field into individual components with machine learning optimization.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-gray-50 p-3 rounded">
+                            <div class="font-semibold text-sm">Innovation</div>
+                            <div class="text-sm text-gray-600">Color component decomposition</div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <div class="font-semibold text-sm">Optimization</div>
+                            <div class="text-sm text-gray-600">ML-based feature weighting</div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <div class="font-semibold text-sm">Advantage</div>
+                            <div class="text-sm text-gray-600">System-specific optimization</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scaffold-Focused -->
+                <div class="method-card card">
+                    <div class="flex items-start justify-between mb-4">
+                        <h3 class="text-xl font-semibold">Scaffold-Focused Approach</h3>
+                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">Langdon et al. 2013</span>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        Focus on core scaffold similarity using scaffold trees for deconstruction and targeted screening.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-gray-50 p-3 rounded">
+                            <div class="font-semibold text-sm">Target</div>
+                            <div class="text-sm text-gray-600">TTK (MPS1) kinase</div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <div class="font-semibold text-sm">Results</div>
+                            <div class="text-sm text-gray-600">8 active compounds, 27 scaffolds</div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <div class="font-semibold text-sm">Validation</div>
+                            <div class="text-sm text-gray-600">4 crystal structures determined</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Multi-Reference -->
+                <div class="method-card card">
+                    <div class="flex items-start justify-between mb-4">
+                        <h3 class="text-xl font-semibold">Multi-Reference Poly-Conformational</h3>
+                        <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">Alexandrov et al. 2022</span>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        Advanced approach using multiple reference compounds and conformational ensembles for complex targets.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-gray-50 p-3 rounded">
+                            <div class="font-semibold text-sm">Application</div>
+                            <div class="text-sm text-gray-600">SARS-CoV-2 ligands</div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <div class="font-semibold text-sm">Approach</div>
+                            <div class="text-sm text-gray-600">Multiple references + conformers</div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <div class="font-semibold text-sm">Advantage</div>
+                            <div class="text-sm text-gray-600">Handles multiple MoAs</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Comparative Analysis -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold serif mb-8 text-center">Comparative Analysis</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Performance Comparison -->
+                <div class="card p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-chart-bar text-blue-500 mr-3"></i>Performance Metrics
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                            <span class="font-medium">CORAL vs Min Energy</span>
+                            <span class="text-green-600 font-semibold">+10-15% AUC</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                            <span class="font-medium">Scaffold-Focused Hit Rate</span>
+                            <span class="text-blue-600 font-semibold">8.2% (8/98)</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                            <span class="font-medium">Whole Molecule Hit Rate</span>
+                            <span class="text-purple-600 font-semibold">12% (12/100)</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                            <span class="font-medium">Feature Decomposition</span>
+                            <span class="text-orange-600 font-semibold">Significant improvement</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Insights -->
+                <div class="card p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-3"></i>Key Insights
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <div class="font-semibold text-blue-600">Target Dependency</div>
+                            <div class="text-sm text-gray-600">Optimal strategy varies by target and dataset</div>
+                        </div>
+                        <div class="border-l-4 border-green-500 pl-4">
+                            <div class="font-semibold text-green-600">ML Integration</div>
+                            <div class="text-sm text-gray-600">Machine learning consistently improves performance</div>
+                        </div>
+                        <div class="border-l-4 border-purple-500 pl-4">
+                            <div class="font-semibold text-purple-600">Structural Novelty</div>
+                            <div class="text-sm text-gray-600">Scaffold-focused approaches excel at scaffold hopping</div>
+                        </div>
+                        <div class="border-l-4 border-orange-500 pl-4">
+                            <div class="font-semibold text-orange-600">Complex Targets</div>
+                            <div class="text-sm text-gray-600">Multi-reference methods show promise for complex pharmacology</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Best Practices -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold serif mb-8 text-center">Practical Implications & Best Practices</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="card p-6 text-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-cogs text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-3">Workflow Integration</h3>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li>• Systematic conformational analysis</li>
+                        <li>• Multiple strategy evaluation</li>
+                        <li>• ML integration when possible</li>
+                    </ul>
+                </div>
+                
+                <div class="card p-6 text-center">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-balance-scale text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-3">Resource Balance</h3>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li>• Computational cost vs benefit</li>
+                        <li>• Target-specific optimization</li>
+                        <li>• Scalable approaches</li>
+                    </ul>
+                </div>
+                
+                <div class="card p-6 text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-check-double text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-3">Validation</h3>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li>• Prospective validation</li>
+                        <li>• Multiple metrics</li>
+                        <li>• Crystal structure confirmation</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Future Directions -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold serif mb-8 text-center">Future Directions & Challenges</h2>
+            
+            <div class="card p-8">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4 text-green-600">
+                            <i class="fas fa-rocket mr-2"></i>Emerging Opportunities
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex items-start">
+                                <i class="fas fa-brain text-blue-500 mr-3 mt-1"></i>
+                                <div>
+                                    <div class="font-medium">Deep Learning Integration</div>
+                                    <div class="text-sm text-gray-600">Advanced ML approaches for query optimization</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-database text-green-500 mr-3 mt-1"></i>
+                                <div>
+                                    <div class="font-medium">Large-Scale Data</div>
+                                    <div class="text-sm text-gray-600">Big data enables more sophisticated strategies</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-puzzle-piece text-purple-500 mr-3 mt-1"></i>
+                                <div>
+                                    <div class="font-medium">Integrated Workflows</div>
+                                    <div class="text-sm text-gray-600">Multi-method integration strategies</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4 text-red-600">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>Key Challenges
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex items-start">
+                                <i class="fas fa-chart-line text-red-500 mr-3 mt-1"></i>
+                                <div>
+                                    <div class="font-medium">Standardization</div>
+                                    <div class="text-sm text-gray-600">Need for common benchmarks and protocols</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-cog text-orange-500 mr-3 mt-1"></i>
+                                <div>
+                                    <div class="font-medium">Resource Requirements</div>
+                                    <div class="text-sm text-gray-600">Balancing computational cost with benefits</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-link text-blue-500 mr-3 mt-1"></i>
+                                <div>
+                                    <div class="font-medium">Integration Complexity</div>
+                                    <div class="text-sm text-gray-600">Multi-method workflow optimization</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Conclusions -->
+        <section class="mb-16">
+            <div class="card p-8 bg-gradient-to-br from-blue-50 to-indigo-50">
+                <h2 class="text-3xl font-bold serif mb-6 text-center text-blue-900">
+                    <i class="fas fa-flag-checkered mr-3"></i>Conclusions
+                </h2>
+                <div class="max-w-4xl mx-auto text-lg leading-relaxed text-gray-700">
+                    <p class="mb-6">
+                        The evidence demonstrates unequivocally that <span class="highlight">query preparation has a profound impact on ROCS-based virtual screening performance</span>. Traditional minimum energy approaches are consistently outperformed by sophisticated strategies considering conformational ensembles, feature decomposition, scaffold focusing, or multiple references.
+                    </p>
+                    <p class="mb-6">
+                        The <strong>CORAL methodology</strong> provides systematic conformational optimization that should be considered essential for virtual screening workflows. <strong>Feature decomposition</strong> enables system-specific optimization, while <strong>scaffold-focused methods</strong> excel at identifying structurally novel compounds.
+                    </p>
+                    <p class="mb-6">
+                        The <strong>multi-reference approach</strong> represents the current state-of-the-art, offering comprehensive molecular characteristic representation. However, the <strong>target-dependent nature</strong> of optimal strategies emphasizes the need for careful evaluation and selection.
+                    </p>
+                    <div class="bg-white p-6 rounded-lg border-l-4 border-blue-500 mt-8">
+                        <p class="font-semibold text-blue-900 mb-2">Key Takeaway for Practitioners:</p>
+                        <p>Query preparation should be considered a <strong>critical component</strong> of virtual screening workflows rather than a minor technical detail. Investment in appropriate query preparation strategies yields significant returns in improved hit rates, structural novelty, and overall screening success.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- References -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold serif mb-8 text-center">References</h2>
+            <div class="card p-8">
+                <div class="space-y-4 text-sm">
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <strong>Tawa, G.J., Baber, J.C. and Humblet, C. (2009).</strong> Computation of 3D queries for ROCS based virtual screens. <em>Journal of Computer-Aided Molecular Design, 23</em>(12), pp. 853–868.
+                        <a href="https://doi.org/10.1007/s10822-009-9302-3" class="citation ml-2">https://doi.org/10.1007/s10822-009-9302-3</a>
+                    </div>
+                    
+                    <div class="border-l-4 border-green-500 pl-4">
+                        <strong>Langdon, S.R. et al. (2013).</strong> Scaffold-Focused Virtual Screening: Prospective Application to the Discovery of TTK Inhibitors. <em>Journal of Chemical Information and Modeling, 53</em>(5), pp. 1100–1112.
+                        <a href="https://doi.org/10.1021/ci400100c" class="citation ml-2">https://doi.org/10.1021/ci400100c</a>
+                    </div>
+                    
+                    <div class="border-l-4 border-purple-500 pl-4">
+                        <strong>Liu, S. et al. (2019).</strong> Practical Model Selection for Prospective Virtual Screening. <em>Journal of Chemical Information and Modeling, 59</em>(1), pp. 282–293.
+                        <a href="https://doi.org/10.1021/acs.jcim.8b00363" class="citation ml-2">https://doi.org/10.1021/acs.jcim.8b00363</a>
+                    </div>
+                    
+                    <div class="border-l-4 border-orange-500 pl-4">
+                        <strong>Kearnes, S. and Pande, V. (2016).</strong> ROCS-derived features for virtual screening. <em>Journal of Computer-Aided Molecular Design, 30</em>(8), pp. 609–617.
+                        <a href="https://doi.org/10.1007/s10822-016-9959-3" class="citation ml-2">https://doi.org/10.1007/s10822-016-9959-3</a>
+                    </div>
+                    
+                    <div class="border-l-4 border-red-500 pl-4">
+                        <strong>Alexandrov, V. et al. (2022).</strong> A multi-reference poly-conformational method for in silico design, optimization, and repositioning of pharmaceutical compounds illustrated for selected SARS-CoV-2 ligands. <em>PeerJ, 10</em>:e14252.
+                        <a href="https://doi.org/10.7717/peerj.14252" class="citation ml-2">https://doi.org/10.7717/peerj.14252</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">
+                Academic Review • Query Preparation in ROCS-Based Virtual Screening • 2024
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
