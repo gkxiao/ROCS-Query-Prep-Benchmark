@@ -1,6 +1,6 @@
 # 📚 Reading Notes & Review Repository
 
-Welcome to the reading notes and literature review repository! This project serves as a collaborative knowledge base for in-depth study, critical analysis, and synthesis of research articles — particularly in fields like computational chemistry, virtual screening, and AI-driven drug discovery.
+Welcome to the reading notes and literature review repository! This project serves as a collaborative knowledge base for in-depth study, critical analysis, and synthesis of research articles — particularly in fields like the effect of query preparation on ROCS performance.
 
 Below is an overview of the key files in this directory:
 
@@ -28,8 +28,7 @@ The template includes sections such as:
 🔬 *Comprehensive Literature Review*
 Created by: **AI Kimi**
 Edited & Reviewed by: **Gaokeng Xiao**
-This document presents a curated, in-depth review of recent advances in shape-based virtual screening and target prediction, with a focus on GPU-accelerated techniques.
-It synthesizes concepts from multiple studies to provide a cohesive narrative, identifies open challenges, and highlights emerging trends.
+This document presents a curated, in-depth review of recent advances in the effect of query preparation on ROCS performance.
 
 🔹 This is a **collaborative scholarly work**, combining AI-generated content with human expert review for accuracy and depth.
 
