@@ -19,7 +19,7 @@ A collection of studies that specifically discuss the effect of query preparatio
 
 - **Tawa et al., 2009** – Effects of query conformations on ROCS screening outcomes.  
 - **Langdon et al., 2013** – Role of conformer generation (OMEGA) and scaffold-focused screening.  
-- **Liu et al., 2018** – Model selection and prospective screening considerations.  
+- **Liu et al., 2019** – Model selection and prospective screening considerations.  
 - **Kearnes et al., 2016** – ROCS-derived features and chemical color weighting.  
 - **Alexandrov et al., 2022** – Multi-query/ensemble strategies and chemical information inclusion.
 
