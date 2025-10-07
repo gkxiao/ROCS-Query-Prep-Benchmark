@@ -14,11 +14,6 @@ This file contains a curated list of references discussing the effect of query p
 
 5. **Alexandrov, V. et al.** (2022) “A multi-reference poly-conformational method for in silico design, optimization, and repositioning of pharmaceutical compounds illustrated for selected SARSCoV-2 ligands,” PeerJ, 10. Available at: https://doi.org/10.7717/peerj.14252.  
 
-6. **Alexandrov, V.; Dobchev, D. A.; Tarasova, O.; Veselovsky, A.; Poroikov, V.**  
-   *How to optimize shape-based virtual screening: choosing the right query and including chemical information.*  
-   PeerJ Comput. Sci. **2022**, 8:e913.  
-   https://doi.org/10.7717/peerj-cs.913  
-
 ---
 
 ### Notes
