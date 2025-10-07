@@ -136,4 +136,4 @@ For practitioners in the field, the key takeaway is that query preparation shoul
 
 [5] Alexandrov V, et al. A multi-reference poly-conformational method for in silico design, optimization, and repositioning of pharmaceutical compounds illustrated for selected SARS-CoV-2 ligands. PeerJ. 2022;10:e14252.
 
-[6] Baber JC, et al. A practical approach to the optimization of virtual screening workflows. Curr Top Med Chem. 2010;10(3):343-355.
+[6] ?
