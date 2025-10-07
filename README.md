@@ -41,3 +41,12 @@ ROCS-Query-Prep-Benchmark/
 ├── figures/ # Diagrams or comparison plots
 └── data/ # Example query setups or benchmark results
 ```
+
+## 🤝 Contribution
+Contributions are welcome! Please submit:
+- New literature references
+- Summaries or annotated notes
+- Benchmark scripts or workflows
+
+## 📜 License
+MIT License. Free to use and adapt for research and educational purposes.
