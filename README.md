@@ -3,8 +3,7 @@
 A curated collection and analysis of research on the impact of query preparation strategies in ROCS-based virtual screening.
 
 ## 📖 Background
-ROCS (Rapid Overlay of Chemical Structures, by OpenEye) is a leading shape-based virtual screening tool widely used in drug discovery.  
-While ROCS is powerful, its performance strongly depends on how the **query molecule(s)** are prepared.  
+ROCS (Rapid Overlay of Chemical Structures, by OpenEye) is a leading shape-based virtual screening tool widely used in drug discovery.  While ROCS is powerful, its performance strongly depends on how the **query molecule(s)** are prepared.  
 Key factors include:
 - Choice of query conformation(s)
 - Single vs. multiple conformers
